@@ -30,6 +30,7 @@ class Solution2(object):
 class Solution(object):
     def threeSum(self, nums):
         """
+        test
         :type nums: List[int]
         :rtype: List[List[int]]
         两点：
