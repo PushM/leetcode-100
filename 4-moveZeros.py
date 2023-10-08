@@ -7,7 +7,7 @@ class Solution(object):
         n = len(nums)
         left = 0 ; right = 0 
         while right < n :
-            if nums[left] != 0:
+            if nums[right] != 0:
                 nums[right],nums[left] = nums[left],nums[right]
                 left +=1
             right+=1
