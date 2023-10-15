@@ -35,9 +35,9 @@ class Solution(object):
         :rtype: List[List[int]]
         两点：
         （1）不重复，直接排序后判断和前一个元素是不是一样
-        （2）「双指针」，当我们需要枚举数组中的两个元素时，如果我们发现随着第一个元素的递增，第二个元素是递减的，
+        （2）「双指针」，当我们需要枚举有序数组中的两个元素时，如果我们发现随着第一个元素的递增，第二个元素是递减的，
+        （比如要求nums[left]+nums[right]==0）固定left，让right往左走。
         那么就可以使用双指针的方法，将枚举的时间复杂度从O(N^2)减少至 O(N)。
-
         """
         ans = []
         n = len(nums)
@@ -60,6 +60,12 @@ class Solution(object):
                     ans.append([nums[i], nums[j], nums[k]])    
 
         return ans
+    """
+    固定left，right从右往左找到第一个nums[left]+nums[right]<=0的right值，
+        如果此时left==right说明left往右走也不会出现nums[left]+nums[right]<=0了
+        elif 此时nums[left]+nums[right]=0 ok
+        elif 此时nums[left]+nums[right]<0 left+=1,
+    """
 nums = [0,0,0]
 sol = Solution()
 print(sol.threeSum(nums))   

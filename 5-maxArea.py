@@ -4,7 +4,8 @@ class Solution(object):
         :type height: List[int]
         :rtype: int
         就是一个贪心+双指针吧
-        贪心，对应的数字较小的那个指针不可能再作为容器的边界了
+        双指针：从左右往中间走
+        贪心：对应的高度较小的那个指针不可能再作为容器的边界了（左右指针，谁高度小谁走）
         """
         l, r = 0, len(height)-1
         ans = 0
