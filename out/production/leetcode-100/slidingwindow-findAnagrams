@@ -1,0 +1,68 @@
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        """
+        两种方法：
+        (1)滑动窗口：建立一个p长度的滑动窗口，滑动窗口不是一个数据结构，而是一个循环的方式吧
+            在一个滑动窗口内计算s_count和p_count，如果s_count和p_count相同记录下标到ans
+            时间复杂度O(m+(n-m)*26)
+            空间复杂度O(26)
+        (2)优化的滑动窗口：也是p长度的滑动窗口
+            在一个滑动窗口内计算count ，统计滑动窗口和字符串 p中每种字母数量的差，必须count全为0才表示找到异位词
+            时间复杂度O(m+m+(n-m)+26) O(m+n+26)
+        """
+        s_len = len(s)
+        p_len = len(p)
+        if s_len < p_len:
+            return []
+        s_count = [0] * 27
+        p_count = [0] * 27
+        ans = []
+
+        for i in range(p_len):
+            s_count[ord(s[i])-97] += 1
+            p_count[ord(p[i])-97] += 1
+        if s_count == p_count:
+            ans.append(0)
+
+        for i in range(p_len,s_len):
+            s_count[ord(s[i-p_len])-97] -= 1
+            s_count[ord(s[i])-97] += 1
+            if s_count ==p_count:
+                ans.append(i-p_len+1)
+        return ans
+    
+    def findAnagrams2(self, s: str, p: str) -> List[int]:
+        s_len = len(s)
+        p_len = len(p)
+        if s_len < p_len:
+            return []
+        
+        ans =[]
+        count = [0] * 27
+        for i in range(p_len):
+            count[ord(s[i])-97] += 1
+            count[ord(p[i])-97] -= 1
+        diff = [c != 0 for c in count].count(True)
+        if diff == 0:
+            ans.append(0)
+        
+        for i in range(s_len - p_len):
+            if count[ord(s[i])-97] == 1:
+                diff -= 1
+            elif count[ord(s[i])-97] == 0:
+                diff += 1
+            count[ord(s[i])-97] -= 1
+
+            if count[ord(s[i+p_len])-97] == -1:
+                diff += 1
+            elif count[ord(s[i+p_len])-97] == 0:
+                diff -= 1
+            count[ord(s[i+p_len])-97] += 1
+
+            if diff == 0:
+                ans.append(i+1)
+        return ans
+        """
+        字母为键的字典用列表来做：ord()-97
+        """
+            
