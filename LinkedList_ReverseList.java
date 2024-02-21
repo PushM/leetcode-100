@@ -1,6 +1,7 @@
 public class LinkedList_ReverseList {
     /*
     反转链表
+    只需要两个两个翻转就可以，把链子的方向变了就行
     迭代法：就是遍历，当前节点curr的next设为前一个节点prev，prev再换成当前节点。在这之前还得记录之前的next，再把next赋值给curr
     时间 n 空间 1
      */
